@@ -1,0 +1,139 @@
+Enter password: ******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 23
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use sse;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_sse |
++---------------+
+| faculty       |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> desc faculty;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| idno    | int(10)     | YES  |     | NULL    |       |
+| name    | varchar(10) | YES  |     | NULL    |       |
+| dept    | varchar(10) | YES  |     | NULL    |       |
+| address | varchar(10) | YES  |     | NULL    |       |
+| hod     | varchar(10) | YES  |     | NULL    |       |
+| salary  | int(3)      | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+6 rows in set (0.02 sec)
+
+mysql> alter table faculty add head varchar(10);
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> update faculty set head="rama" where hod="saravanan";
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select8from faculty;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select8from faculty' at line 1
+mysql> select*from faculty;
++-------+---------+-------+---------+-----------+--------+------+
+| idno  | name    | dept  | address | hod       | salary | head |
++-------+---------+-------+---------+-----------+--------+------+
+| 87664 | goutham | ai    | kurnool | saravanan |  60000 | rama |
+| 64323 | deepa   | bme   | vellore | devi      |  80000 | NULL |
+| 95327 | lokesh  | mech  | chennai | raghu     |  50000 | NULL |
+| 64378 | seetha  | civil | hyd     | hari      |  50000 | NULL |
++-------+---------+-------+---------+-----------+--------+------+
+4 rows in set (0.00 sec)
+
+mysql> update faculty set head="shiv" where hod="devi";
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update faculty set head="roy" where hod="raghu";
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update faculty set head="ravi" where hod="hari";
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from faculty;
++-------+---------+-------+---------+-----------+--------+------+
+| idno  | name    | dept  | address | hod       | salary | head |
++-------+---------+-------+---------+-----------+--------+------+
+| 87664 | goutham | ai    | kurnool | saravanan |  60000 | rama |
+| 64323 | deepa   | bme   | vellore | devi      |  80000 | shiv |
+| 95327 | lokesh  | mech  | chennai | raghu     |  50000 | roy  |
+| 64378 | seetha  | civil | hyd     | hari      |  50000 | ravi |
++-------+---------+-------+---------+-----------+--------+------+
+4 rows in set (0.00 sec)
+
+mysql> select*from faculty where salary between 60000 and 80000;
++-------+---------+------+---------+-----------+--------+------+
+| idno  | name    | dept | address | hod       | salary | head |
++-------+---------+------+---------+-----------+--------+------+
+| 87664 | goutham | ai   | kurnool | saravanan |  60000 | rama |
+| 64323 | deepa   | bme  | vellore | devi      |  80000 | shiv |
++-------+---------+------+---------+-----------+--------+------+
+2 rows in set (0.00 sec)
+
+mysql> select*from faculty where head in('shiv');
++-------+-------+------+---------+------+--------+------+
+| idno  | name  | dept | address | hod  | salary | head |
++-------+-------+------+---------+------+--------+------+
+| 64323 | deepa | bme  | vellore | devi |  80000 | shiv |
++-------+-------+------+---------+------+--------+------+
+1 row in set (0.00 sec)
+
+mysql> select*from mentee where salary not between 60000 to 80000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to 80000' at line 1
+mysql> select*from faculty where salary not between 60000 to 80000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to 80000' at line 1
+mysql> select*from faculty where salary not between 60000 and 80000;
++-------+--------+-------+---------+-------+--------+------+
+| idno  | name   | dept  | address | hod   | salary | head |
++-------+--------+-------+---------+-------+--------+------+
+| 95327 | lokesh | mech  | chennai | raghu |  50000 | roy  |
+| 64378 | seetha | civil | hyd     | hari  |  50000 | ravi |
++-------+--------+-------+---------+-------+--------+------+
+2 rows in set (0.00 sec)
+
+mysql> select sum(salary) from faculty where dept="ai";
++-------------+
+| sum(salary) |
++-------------+
+|       60000 |
++-------------+
+1 row in set (0.05 sec)
+
+mysql> select average(salary) as average from faculty;
+ERROR 1305 (42000): FUNCTION sse.average does not exist
+mysql> select min(salary) as minimum from faculty;
++---------+
+| minimum |
++---------+
+|   50000 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) as maximum fom faculty;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'fom faculty' at line 1
+mysql> select max(salary) as maximum from faculty;
++---------+
+| maximum |
++---------+
+|   80000 |
++---------+
+1 row in set (0.00 sec)
+
+mysql>

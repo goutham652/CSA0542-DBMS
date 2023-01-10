@@ -1,0 +1,70 @@
+Enter password: ******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 20
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use sse;
+Database changed
+mysql> create table faculty(idno int(10),name varchar(10),dept varchar(10),address varchar(10),hod varchar(10));
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into faculty values(87664,"goutham","ai","kurnool","saravanan");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into faculty values(87654,"deepa","vellore","devi");
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into faculty values(64323,"deepa","cse","vellore","devi");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into faculty values(95327,"lokesh","mech","chennai","raghu");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into faculty values(75425,"kavitha","ece","guntur","pdrl");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into faculty values(86437,"seetha","civil","hyd");
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into faculty values(64378,"seetha","civil","hyd","hari");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from faculty;
++-------+---------+-------+---------+-----------+
+| idno  | name    | dept  | address | hod       |
++-------+---------+-------+---------+-----------+
+| 87664 | goutham | ai    | kurnool | saravanan |
+| 64323 | deepa   | cse   | vellore | devi      |
+| 95327 | lokesh  | mech  | chennai | raghu     |
+| 75425 | kavitha | ece   | guntur  | pdrl      |
+| 64378 | seetha  | civil | hyd     | hari      |
++-------+---------+-------+---------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select name from faculty;
++---------+
+| name    |
++---------+
+| goutham |
+| deepa   |
+| lokesh  |
+| kavitha |
+| seetha  |
++---------+
+5 rows in set (0.00 sec)
+
+mysql> select*from faculty where name="goutham";
++-------+---------+------+---------+-----------+
+| idno  | name    | dept | address | hod       |
++-------+---------+------+---------+-----------+
+| 87664 | goutham | ai   | kurnool | saravanan |
++-------+---------+------+---------+-----------+
+1 row in set (0.00 sec)
+
+mysql>
